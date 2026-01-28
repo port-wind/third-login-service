@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+*.bak
+.env.local
+.env.development
+.env.*.local
+credentials.json
+*.pem
+*.key
+.wrangler/
