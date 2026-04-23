@@ -1,0 +1,51 @@
+# 生产环境配置
+# 部署命令: pnpm wrangler deploy --config wrangler.prod.toml
+
+name = "third-login-service-prod"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+account_id = "075b27c53018d626b57d1b597d5a024c"  # 生产账号 ID
+
+# D1 数据库（生产环境）
+[[d1_databases]]
+binding = "AUTH_DB"
+database_name = "third-login-service-db-prod"
+database_id = "21adb4be-583d-4d02-8379-c2bc60c03256"  # 生产环境 D1 ID
+
+# KV 存储（生产环境）
+[[kv_namespaces]]
+binding = "AUTH_KV"
+id = "e5e76b722b624ad8ae280ddb2b90094f"  # third-login-service-kv-prod
+
+# 环境变量
+[vars]
+# JWT 配置
+JWT_SECRET = "Th1rdL0g1nSvc2024ProdSecretKey9x"  # 🔴 替换为生产环境密钥（强密码）
+JWT_EXPIRES_IN = "7d"
+
+# Google OAuth 配置（生产环境）
+GOOGLE_CLIENT_ID = "782998765578-32jugpmg4chshrfl9r04llfdfo991m8b.apps.googleusercontent.com"  # 🔴 替换为生产 Google Client ID
+GOOGLE_CLIENT_SECRET = "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"  # 🔴 替换为生产 Google Secret
+GOOGLE_REDIRECT_URI = "https://auth-login.bingo84.com/callback/google"  # 🔴 替换为生产域名
+
+# Apple Sign In 配置（生产环境）
+APPLE_CLIENT_ID = "jp.xdreamstar.auth-bridge-dev.service"  # 🔴 替换为生产 Apple Service ID
+APPLE_TEAM_ID = "3A23J8Y46P"  # 🔴 替换为你的 Apple Team ID
+APPLE_KEY_ID = "2JCB9MRNQ5"  # 🔴 替换为生产 Apple Key ID
+APPLE_PRIVATE_KEY = """-----BEGIN PRIVATE KEY-----
+MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgL4Xe8O0c67J2lnQE
+5ZHnxt49qH1DnQQu8LxXPkugL52gCgYIKoZIzj0DAQehRANCAARl5GvbEAML9JID
+qEh2M4NONraWGccRE6l6uVE3KWgI9injV7LEkqHiIKaJPlAbu6wX03Mlvn7hV1Hb
+LPQDgwUm
+-----END PRIVATE KEY-----"""
+APPLE_REDIRECT_URI = "https://auth-login.bingo84.com/callback/apple"  # 🔴 替换为生产域名
+
+# Firebase：API_KEY / AUTH_DOMAIN 仅测试页用（可选）；PROJECT_ID 启用手机登录时必填（校验 Token aud/iss）
+FIREBASE_API_KEY = "YOUR_FIREBASE_API_KEY"  # 🟡 可选
+FIREBASE_AUTH_DOMAIN = "YOUR_PROJECT.firebaseapp.com"  # 🟡 可选
+FIREBASE_PROJECT_ID = "YOUR_PROJECT_ID"  # 🟡 Phone 登录必填，与客户端 Firebase 项目一致
+
+# 线上环境 URL（生产）
+# ENVIRONMENT = "production"
+
